@@ -1,19 +1,46 @@
+def buildApp()  {
+  echo 'building the application...'
+}
+
+def testApp() {
+  echo 'testing the application...'
+}
+
+def deployApp() {
+  echo "deploying the application...'
+}
+
+return this
+
 pipeline {
   agent any 
   stages {
+    stage("init") {
+      steps {
+        script {
+          gv = load "script.groovy"
+        }
+      }
+    }
     stage("build") {
       steps {
-        echo "build stage"
+        script {
+          gv.buildApp()
+        }
       }
     }
     stage("test") {
       steps {
-        echo "test stage"
+        script {
+          gv.testApp()
+        }
       }
     }
     stage("deploy") {
       steps {
-        echo "deploy stage"
+        script {
+          gv.deployApp()
+        }
       }
     }
   }
